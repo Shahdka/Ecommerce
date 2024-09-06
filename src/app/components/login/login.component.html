@@ -1,0 +1,79 @@
+<section class="bg-main-light w-75 rounded-4 mx-auto container">
+    <div class="container-fluid">
+        <form [formGroup]="loginForm" class="p-3"  (ngSubmit)="LogFormInfo()">
+            <h2 class="h3  text-main">login : </h2>
+
+            <div class="row py-3" >
+                <div class="col-12 my-2">
+                    <label for="email">Email:</label>
+                    <input
+                    [ngClass]="{
+                        'is-invalid': loginForm.get('email')?.invalid && (loginForm.get('email')?.touched ||loginForm.get('email')?.dirty),
+                        'is-valid': loginForm.get('email')?.valid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)
+                        
+                    }"
+                    type="text" class="form-control" id="email" placeholder="Email" formControlName="email">
+                    @if (loginForm.get('email')?.getError('required') && (loginForm.get('email')?.touched )) {
+                        <div class="alert alert-danger w-50">
+                            <p class="m-0">Email is required</p>
+                        </div>
+                    }
+                    @else if(loginForm.get('email')?.getError('email')){
+                        <div class="alert alert-danger">
+                            <p class="m-0">Invalid Email format</p>
+                        </div>
+                    }
+                </div>
+                <div class="col-12 my-2">
+                    <label for="password">Password:</label>
+                    <input
+                    [ngClass]="{
+                        'is-invalid': loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty),
+                        'is-valid': loginForm.get('password')?.valid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)
+                    }"
+                    type="password" class="form-control"  id="password" placeholder="Password" formControlName='password' >
+                    @if (loginForm.get('password')?.getError('required')&& loginForm.get('password')?.touched) {
+                        <div class="alert alert-danger w-50">
+                            <p class="m-0">Password is required</p>
+                        </div>
+                    }
+                    @else if(loginForm.get('password')?.getError('pattern')){
+                        <div class="alert alert-danger w-50">
+                            <p class="m-0">Password must be at least 6 characters long</p>
+                        </div>
+                    }
+                    
+                </div>
+             
+               <div class="container">
+                <div class="row  align-items-center justify-content-between">
+                    <div class="col-md-6 my-2">
+                        <a routerLink="/forget" class=" mt-2 me-5 d-block" >
+                            Forgot your Password ?     
+                        </a>
+                        
+                    <button  class="btn btn-main d-block mt-3 ms-auto"  [disabled]="loginForm.invalid||isLoading">Login
+                       @if (isLoading) {
+                        <i class="fas fa-spin fa-spinner"></i>
+                       }
+                    </button>
+                   </div>
+                   @if (msError) {
+                    <div class="col-12 my-2">
+                        <div class="alert alert-danger w-50  mx-auto">
+                            <p class="m-0">{{msError}}</p>
+                        </div>
+                    </div>
+                    
+                   }
+               </div>
+              </div>  
+                   
+                 
+          
+            </div>
+        </form>
+    </div>
+</section>
+
+

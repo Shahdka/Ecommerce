@@ -1,0 +1,40 @@
+@if (detailsInfo) {
+    <section class="my-2">
+        <div class="container-fluid">
+            <h2 class="text-main text-center my-2">Details Product</h2>
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <owl-carousel-o [options]="customOptions">
+                    @for (img of detailsInfo.images; track $index) {
+                        <ng-template carouselSlide >
+                            <img [src]="img" class="w-100 rounded-3" [alt]="detailsInfo.title">
+                        </ng-template>
+                    }
+                </owl-carousel-o>
+                </div>
+                <div class="col-md-8">
+                    <div>
+                    <h2 class="text-main">{{detailsInfo.title}}</h2>
+                    <p class="text-muted"> {{detailsInfo.description}} </p>
+                        <h3 class="h5"> {{detailsInfo.category.name}} </h3>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span> {{detailsInfo.price}} EGp</span>
+                            <div>
+                                @for (item of [1,2,3,4,5].slice(0,detailsInfo.ratingsAverage); track $index) {
+                                    <span><i class="fa-solid fa-star rating-color"></i></span>
+                                }
+                                @if (detailsInfo.ratingsAverage/1!=0) {
+                                    <span>
+                                        <i class="fa-solid fa-star-half-alt rating-color"></i>
+                                        ({{detailsInfo.ratingsAverage.toFixed(1)}})
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <button (click)="AddProductToCart(detailsInfo._id)" class="btn-main w-100 rounded-4">+Add to cart </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

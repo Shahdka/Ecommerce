@@ -1,0 +1,55 @@
+<section class="mb-2 pb-5">
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-12 text-center pt-5">
+                <h2 class=" my-2 cursor-pointer pt-5" (click)="toggleSearch()">TO SEARCH CLICK HERE   @if(ToggleSearch){
+                    <i class="fa-solid fa-magnifying-glass-minus"></i>
+                } @else if (ToggleSearch==false) {
+                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                }
+                </h2>
+                @if(ToggleSearch){
+                <input [(ngModel)]="wordSearch"  type="search" class="rounded-4 form-control d-block w-50 mx-auto"  >
+    }
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="text-main ms-3 pb-2">All Products :</h2>
+
+        <div class="row g-3">
+            @for (product of productList|search:wordSearch; track product.id) {
+                <div class="col-md-3">
+                    <div class="shadow rounded-4 product p-2 position-relative">
+                        <div class="wishI position-absolute" (click)="AddProductToWish(product._id)"><i class="fa-solid fa-heart fs-2 "></i></div>
+                        <div [routerLink]="['/details',product.id]">
+                            <img [src]="product.imageCover" class="w-100"  [alt]="product.title">
+                                <h3 class="h6 text-main">{{product.category.name}}</h3>
+                                <h4 class="h6">{{product.title|termText}}</h4>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>{{product.price |currency:"GBP"}} </span>
+                                    <div>
+                                    @for (item of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) {
+                                        <span><i class="fa-solid fa-star rating-color"></i></span>                                
+                                    }
+                                        @if (product.ratingsAverage/1!=0) {
+                                            <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                                        }
+                                        <span class="text-muted">{{product.ratingsAverage}}</span>
+                                    </div>
+                                </div>
+                        </div>
+                        <button class="btn-main w-100 rounded-4" (click)="AddThisProductToCart(product._id)" >+Add to cart </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+
+
+<section class="pt-5 mt-5 ps-5 ms-5">
+    <div class="row g-0 ">
+        <div class="col-md-8 ">
+           
+            <owl-carousel-o [options]="customOptionsMain">  
+                <ng-template carouselSlide><img src="./assets/images/slider-image-1.jpeg" height="300px" class="w-100" alt=""> </ng-template>  
+                <ng-template carouselSlide><img src="./assets/images/slider-image-2.jpeg" height="300px" class="w-100" alt=""> </ng-template>  
+                <ng-template carouselSlide><img src="./assets/images/slider-image-3.jpeg" height="300px" class="w-100" alt=""> </ng-template>  
+                  
+              </owl-carousel-o>
+        </div>
+        <div class="col-md-3">
+            <img src="./assets/images/slider-image-1.jpeg" height="150px" class="w-100 d-block" alt="">
+            <img src="../../../assets/images/slider-2.jpeg" height="150px" class="w-100  d-block" alt="">
+        </div>
+    </div>
+</section>
+
+<section class="my-3">
+    
+
+    <owl-carousel-o [options]="customOptionsCategories">
+
+        @for (category of categoryList; track category._id) {
+            <ng-template carouselSlide >
+                <div>
+                    <img [src]="category.image" class="w-100" height="250px" [alt]="category.name">
+                    <h3 class="h6 text-main my-1">{{category.name}}</h3>
+                </div>
+            </ng-template>
+        }
+    
+      </owl-carousel-o>
+</section>
+
+
+<Section class="pb-5">
+    
+    <div class="container">
+        <h1>Popular products :</h1>
+        <div class="row g-3">
+            @for (product of productList.slice(0,32) ; track product._id) {
+                <div class="col-md-3">
+                    <div class="product shadow rounded-4 p-2 position-relative">
+                        <div class="wishI position-absolute" (click)="AddProductToWish(product._id)"><i class="fa-solid fa-heart fs-2 "></i></div>
+                        <div [routerLink]="['/details',product._id]">
+                            <img [src]="product.imageCover" class="w-100"  [alt]="product.title">
+                            <h3 class="h6 text-main">{{product.category.name}}</h3>
+                            <h4 class="h6">{{product.title|termText}}</h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{product.price |currency:'GBP'}} </span>
+                                <div>
+                                  @for (item of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) {
+                                    <span><i class="fa-solid fa-star rating-color"></i></span>
+                                  
+                                  }
+                                    @if (product.ratingsAverage/1!=0) {
+                                        <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                                    }
+                                    <span class="text-muted">{{product.ratingsAverage}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-main w-100 rounded-4" (click)="AddThisProductToCart(product._id)"> +Add to cart </button>
+                    </div>
+                  
+                </div>
+            }
+        </div>
+    </div>
+</Section>

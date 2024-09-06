@@ -1,0 +1,16 @@
+<section class=" pb-5" >
+    
+    <div class="container">
+      <h2 class="text-main text-center pb-4 pt-3 ">ALL Brands :</h2>
+        <div class="row g-2">
+          @for (item of brands; track item._id) {
+            <div class="col-md-3 cursor-pointer border ">
+            <div [routerLink]="['/SPBrand',item._id]">
+                <div><img [src]="item.image" class="w-100" [alt]="item.name"></div>
+                <h3 class="text-main text-center">{{item.name}}</h3>
+            </div> 
+            </div>
+          }
+        </div>
+    </div>
+</section>

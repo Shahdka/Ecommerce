@@ -1,0 +1,31 @@
+@if (btn) {
+    <section class="bg-main-light rounded-4 shadow pt-5 w-75 mx-auto p-2 mb-5 mt-5">
+        <h2 class="text-center">Your wish list:</h2> 
+        <div class="container-fluid">
+        @for (item of WishData ; track item._id) {
+        <div class="row mb-2 border-bottom">
+            <div class="col-md-2">
+                <img [src]="item.imageCover"class="w-100 rounded-4" [alt]="item.title">
+            </div>
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column justify-content-around align-items-start ">        
+                        <h5 class="my-4"> {{item.title}} </h5>
+                        <p class="text-main my-4"> {{item.price|currency:'GBP'}} </p>
+                        <span class="text-danger cursor-pointer my-4" (click)="DeleteItem(item._id)"><i class="fa-solid fa-trash fa-1x"> Remove</i></span>
+                        </div>
+                </div>
+                <div class="my-2" >
+                    <button (click)="AddThisProductToCart(item._id)" class="btn btn-main rounded-4"> +Add to Cart</button>
+                </div>
+    </div>
+    </div>
+    }
+    </div>
+    </section>
+}
+@else {
+    <section >
+        <h2 class="pb-5"> Your wish list:</h2>
+    </section>
+}
